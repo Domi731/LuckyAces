@@ -446,12 +446,14 @@
             players.forEach((player, index) => {
                 const playerDiv = document.createElement('div');
                 playerDiv.className = `player ${index === currentPlayer ? 'active' : ''}`;
+                // Show all cards during showdown, otherwise only show human player's cards
+                const showCards = index === 0 || gamePhase === 'showdown';
                 playerDiv.innerHTML = `
                     <h3>${player.name}</h3>
-                    <div>Chips: $${player.chips}</div>
-                    <div>Bet: $${player.bet}</div>
+                    <div>Chips: ${player.chips}</div>
+                    <div>Bet: ${player.bet}</div>
                     <div class="player-cards" id="player-${index}-cards">
-                        ${renderPlayerCards(player, index === 0)}
+                        ${renderPlayerCards(player, showCards)}
                     </div>
                     ${player.folded ? '<div style="color: #ef4444;">FOLDED</div>' : ''}
                 `;
